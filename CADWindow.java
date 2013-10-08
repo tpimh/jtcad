@@ -1,6 +1,5 @@
 import org.freedesktop.cairo.Antialias;
 import org.freedesktop.cairo.Context;
-
 import org.gnome.gdk.Event;
 import org.gnome.gtk.CellRendererText;
 import org.gnome.gtk.DataColumn;
@@ -184,7 +183,8 @@ public class CADWindow extends Window {
 
 	public void initUI() {
 
-		initPointView(figures[0]);
+		initPointView();
+		setPointModel(figures[0]);
 		initFigureView();
 		initCanvas();
 		initStatusbar();
@@ -217,7 +217,7 @@ public class CADWindow extends Window {
 		lview_figures = new TreeView(model_figures);
 		lview_figures.setCanFocus(false);
 		lview_figures.setCanDefault(false);
-		lview_figures.setSizeRequest(100, 0);
+		lview_figures.setSizeRequest(100, 100);
 
 		for (Figure fig : figures) {
 			row = model_figures.appendRow();
@@ -242,9 +242,7 @@ public class CADWindow extends Window {
 
 				for (Figure fig : figures) {
 					if (fig.toString().equals(figStr)) {
-						initPointView(fig);
-						lview_points.show();
-						lview_figures.hide();
+						setPointModel(fig);
 					}
 				}
 
@@ -278,7 +276,11 @@ public class CADWindow extends Window {
 		});
 	}
 
-	private void initPointView(Figure figure) {
+	private void setPointModel(Figure figure) {
+		for (TreeViewColumn col : lview_points.getColumns()) {
+			lview_points.removeColumn(col);
+		}
+		
 		TreeIter row;
 		CellRendererText xRenderer, yRenderer;
 		TreeViewColumn xColumn, yColumn;
@@ -288,10 +290,8 @@ public class CADWindow extends Window {
 		final DataColumnString xCol, yCol;
 		model_points = new ListStore(new DataColumn[] {
 				xCol = new DataColumnString(), yCol = new DataColumnString() });
-
-		lview_points = new TreeView(model_points);
-		lview_points.setCanFocus(false);
-		lview_points.setCanDefault(false);
+		
+		lview_points.setModel(model_points);
 
 		for (int[] point : points) {
 			row = model_points.appendRow();
@@ -311,6 +311,14 @@ public class CADWindow extends Window {
 		yRenderer.setText(yCol);
 		yRenderer.setEditable(true);
 
+	}
+
+	private void initPointView() {
+		lview_points = new TreeView();
+		lview_points.setCanFocus(false);
+		lview_points.setCanDefault(false);
+		lview_points.setSizeRequest(80, 100);
+		
 		/*
 		 * lview_points.connect(new TreeView.RowActivated() { public void
 		 * onRowActivated(TreeView treeView, TreePath treePath, TreeViewColumn
