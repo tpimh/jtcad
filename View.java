@@ -5,8 +5,8 @@ public class View {
 
 	private final static double OFFSET_STEP = 100.0D;
 	private final static double LINE_WIDTH = 1.0D;
-	private final static double CROSS_WIDTH = 2.5D;
-	private final static double CROSS_SIZE = 1.5D;
+	private final static double CROSS_WIDTH = 5.0D;
+	private final static double CROSS_SIZE = 2.0D;
 
 	public View() {
 	}
