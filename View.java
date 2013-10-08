@@ -56,4 +56,15 @@ public class View {
 
 		cr.stroke();
 	}
+
+	public void drawPoint(int[] point, Context cr) {
+		cr.setLineWidth(5.0);
+		cr.setSource(1.0, 0.0, 0.0, 1.0);
+		cr.moveTo((point[0] - offset[0]) * scale, (point[1] - offset[1]) * scale);
+		cr.moveRelative(-1, -1);
+		cr.lineRelative(2, 2);
+		cr.moveRelative(-2, 0);
+		cr.lineRelative(2, -2);
+		cr.stroke();
+	}
 }

@@ -153,6 +153,8 @@ public class CADWindow extends Window {
 					{ 1324, 1554 }, { 1318, 1558 }, { 1311, 1561 },
 					{ 1304, 1562 } }) };
 
+	int[] selectedPoint = { 1150, 1150 };
+
 	public CADWindow() {
 
 		setTitle("JtCAD");
@@ -280,7 +282,7 @@ public class CADWindow extends Window {
 		for (TreeViewColumn col : lview_points.getColumns()) {
 			lview_points.removeColumn(col);
 		}
-		
+
 		TreeIter row;
 		CellRendererText xRenderer, yRenderer;
 		TreeViewColumn xColumn, yColumn;
@@ -290,7 +292,7 @@ public class CADWindow extends Window {
 		final DataColumnString xCol, yCol;
 		model_points = new ListStore(new DataColumn[] {
 				xCol = new DataColumnString(), yCol = new DataColumnString() });
-		
+
 		lview_points.setModel(model_points);
 
 		for (int[] point : points) {
@@ -311,6 +313,23 @@ public class CADWindow extends Window {
 		yRenderer.setText(yCol);
 		yRenderer.setEditable(true);
 
+		lview_points.connect(new TreeView.RowActivated() {
+			public void onRowActivated(TreeView treeView, TreePath treePath,
+					TreeViewColumn treeViewColumn) {
+
+				final TreeIter row;
+
+				row = model_points.getIter(treePath);
+
+				selectedPoint = new int[] {
+						Integer.valueOf(model_points.getValue(row, xCol)),
+						Integer.valueOf(model_points.getValue(row, yCol)) };
+
+				 darea.queueDraw();
+
+			}
+		});
+
 	}
 
 	private void initPointView() {
@@ -318,23 +337,8 @@ public class CADWindow extends Window {
 		lview_points.setCanFocus(false);
 		lview_points.setCanDefault(false);
 		lview_points.setSizeRequest(80, 100);
-		
+
 		/*
-		 * lview_points.connect(new TreeView.RowActivated() { public void
-		 * onRowActivated(TreeView treeView, TreePath treePath, TreeViewColumn
-		 * treeViewColumn) {
-		 * 
-		 * final TreeIter row; final String figStr;
-		 * 
-		 * row = model_points.getIter(treePath);
-		 * 
-		 * figStr = model_points.getValue(row, figCol);
-		 * 
-		 * for (Figure fig : figures) { if (fig.toString().equals(figStr)) {
-		 * initPointView(fig); } }
-		 * 
-		 * } });
-		 * 
 		 * TreeSelection selection = lview_points.getSelection();
 		 * selection.setMode(SelectionMode.SINGLE);
 		 * 
@@ -370,6 +374,8 @@ public class CADWindow extends Window {
 
 				for (Figure fig : figures)
 					view.draw(fig, cr);
+
+				view.drawPoint(selectedPoint, cr);
 
 				return false;
 			}
