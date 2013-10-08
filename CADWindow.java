@@ -313,20 +313,22 @@ public class CADWindow extends Window {
 		yRenderer.setText(yCol);
 		yRenderer.setEditable(true);
 
-		lview_points.connect(new TreeView.RowActivated() {
-			public void onRowActivated(TreeView treeView, TreePath treePath,
-					TreeViewColumn treeViewColumn) {
+		TreeSelection selection = lview_points.getSelection();
+		selection.setMode(SelectionMode.SINGLE);
 
-				final TreeIter row;
+		selection.connect(new Changed() {
 
-				row = model_points.getIter(treePath);
+			public void onChanged(TreeSelection sel) {
+				
+				final TreeIter row = sel.getSelected();
 
-				selectedPoint = new int[] {
-						Integer.valueOf(model_points.getValue(row, xCol)),
-						Integer.valueOf(model_points.getValue(row, yCol)) };
+				if (row != null) {
+					selectedPoint = new int[] {
+							Integer.valueOf(model_points.getValue(row, xCol)),
+							Integer.valueOf(model_points.getValue(row, yCol)) };
 
-				 darea.queueDraw();
-
+					darea.queueDraw();
+				}
 			}
 		});
 
@@ -337,26 +339,6 @@ public class CADWindow extends Window {
 		lview_points.setCanFocus(false);
 		lview_points.setCanDefault(false);
 		lview_points.setSizeRequest(80, 100);
-
-		/*
-		 * TreeSelection selection = lview_points.getSelection();
-		 * selection.setMode(SelectionMode.SINGLE);
-		 * 
-		 * selection.connect(new Changed() {
-		 * 
-		 * public void onChanged(TreeSelection sel) {
-		 * 
-		 * final TreeIter row = sel.getSelected(); final String figStr;
-		 * 
-		 * figStr = model_points.getValue(row, figCol);
-		 * 
-		 * for (Figure fig : figures) { if (fig.toString().equals(figStr)) {
-		 * fig.setActive(true); } else { fig.setActive(false); } }
-		 * 
-		 * darea.queueDraw();
-		 * 
-		 * sbar.setMessage("Selected: " + figStr); } });
-		 */
 	}
 
 	private void initCanvas() {
