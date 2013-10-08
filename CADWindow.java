@@ -153,7 +153,7 @@ public class CADWindow extends Window {
 					{ 1324, 1554 }, { 1318, 1558 }, { 1311, 1561 },
 					{ 1304, 1562 } }) };
 
-	int[] selectedPoint = { 1150, 1150 };
+	int[] selectedPoint = null;
 
 	public CADWindow() {
 
@@ -319,16 +319,19 @@ public class CADWindow extends Window {
 		selection.connect(new Changed() {
 
 			public void onChanged(TreeSelection sel) {
-				
+
 				final TreeIter row = sel.getSelected();
 
 				if (row != null) {
 					selectedPoint = new int[] {
 							Integer.valueOf(model_points.getValue(row, xCol)),
 							Integer.valueOf(model_points.getValue(row, yCol)) };
-
-					darea.queueDraw();
+				} else {
+					selectedPoint = null;
 				}
+
+				darea.queueDraw();
+
 			}
 		});
 
@@ -357,8 +360,10 @@ public class CADWindow extends Window {
 				for (Figure fig : figures)
 					view.draw(fig, cr);
 
-				view.drawPoint(selectedPoint, cr);
-
+				if (selectedPoint != null) {
+					view.drawPoint(selectedPoint, cr);
+				}
+				
 				return false;
 			}
 		});
