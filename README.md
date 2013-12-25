@@ -11,18 +11,16 @@ How to use it?
 -----
 1. Find an HPGL file (usually outputed by KiCAD), name it "example.plt" and put it in the current directory.
 2. Get rid of Java packages (or sort all the source files by apropriate directories):
-
 ```
 sed -i '/org.golovin.jtcad/d' *.java
 ```
 3. You will need *java-gnome* in your classpath to compile it:
-
 ```
 javac -classpath /usr/share/java/gtk.jar -sourcepath . CADWindow.java
 ```
 4. Now launch it:
-
 ```
 java -classpath .:/usr/share/java/gtk.jar CADWindow
 ```
+
 Now you can view your HPGL file, that's all.
