@@ -72,6 +72,7 @@ public class View {
 	}
 
 	public void fitAll(int x, int y) {
+		// TODO: y-axis measurement implementation
 		scale = x / maximum[0];
 	}
 

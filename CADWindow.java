@@ -372,6 +372,23 @@ public class CADWindow extends Window {
 				darea.queueDraw();
 			}
 		});
+		
+		zoom_100_tb.connect(new ToolButton.Clicked() {
+
+			public void onClicked(ToolButton arg0) {
+				view.setScale(1.0D);
+				darea.queueDraw();
+			}
+		});
+		
+		zoom_fit_tb.connect(new ToolButton.Clicked() {
+
+			public void onClicked(ToolButton arg0) {
+				// TODO: find actual maximum coordinates
+				view.fitAll(1000, 1000);
+				darea.queueDraw();
+			}
+		});
 
 		quit_tb.connect(new ToolButton.Clicked() {
 
