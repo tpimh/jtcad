@@ -74,10 +74,6 @@ public class HPGLParser {
 			} else if (arr_cmd[i].equals("PD")) {
 				// System.out.println("\t: pen down");
 
-				if (cur_fig != null) {
-					figs.add(cur_fig);
-				}
-
 				cur_fig = new Trace();
 
 				cur_fig.addPoint(last_pupa);
@@ -101,10 +97,13 @@ public class HPGLParser {
 					}
 				}
 				
-				figs.add(cur_fig);
+				if (cur_fig != null) {
+					figs.add(cur_fig);
+				}
 				
 				if (arr_cmd[i].equals("PU")) {
-					i--;
+					i--; // some kind of black magic
+					// I can not remember why do I need this
 				}
 			} else {
 				// System.out.println("\t: ignoring");
