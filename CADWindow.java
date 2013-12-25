@@ -384,8 +384,8 @@ public class CADWindow extends Window {
 		zoom_fit_tb.connect(new ToolButton.Clicked() {
 
 			public void onClicked(ToolButton arg0) {
-				// TODO: find actual maximum coordinates
-				view.fitAll(1000, 1000);
+				// TODO: now using data from DrawingArea, but the behavior is strange
+				view.fitAll(darea.getAllocatedWidth(), darea.getAllocatedHeight());
 				darea.queueDraw();
 			}
 		});

@@ -100,6 +100,9 @@ public class HPGLParser {
 						// + "\t: ignoring");
 					}
 				}
+				
+				figs.add(cur_fig);
+				
 				if (arr_cmd[i].equals("PU")) {
 					i--;
 				}
