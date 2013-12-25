@@ -3,31 +3,20 @@ package org.golovin.jtcad.geometry;
 import java.util.ArrayList;
 import java.util.List;
 
-import CGAL.Kernel.Point_2;
-import CGAL.Kernel.Polygon_2;
-
 public abstract class Figure {
 
-	Polygon_2 polygon;
+	List<int[]> list;
 
 	public Figure() {
-		polygon = new Polygon_2();
+		list = new ArrayList<int[]>();
 	}
 
 	public List<int[]> getPoints() {
-		List<int[]> list = new ArrayList<int[]>();
-		
-		for (int i = 0; i < polygon.size(); i++) {
-			Point_2 point = polygon.vertex(i);
-			
-			list.add(new int[] { (int) point.x(), (int) point.y() });
-		}
-
 		return list;
 	}
 
 	public void addPoint(int[] point) {
-		polygon.push_back(new Point_2(point[0], point[1]));
+		list.add(point);
 	}
 
 	private boolean active = false;
@@ -43,6 +32,6 @@ public abstract class Figure {
 	@Override
 	public String toString() {
 		return this.getClass().getSimpleName() + "@"
-				+ Integer.toHexString(polygon.hashCode());
+				+ Integer.toHexString(list.hashCode());
 	}
 }
