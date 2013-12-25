@@ -145,17 +145,18 @@ public class HPGLParser {
 
 					int length = (int) Math.sqrt(x * x + y * y);
 
-					int dx = (int) Math.abs((length + increment) * Math.cos(angle)), dy = (int) Math.abs((length + increment) * Math
-							.sin(angle));
-										
-					points[0 + i][0] = x0 - dx/2;
+					int dx = (int) Math.abs((length + increment)
+							* Math.cos(angle)), dy = (int) Math
+							.abs((length + increment) * Math.sin(angle));
+
+					points[0 + i][0] = x0 - dx / 2;
 					points[0 + i][1] = (i % 2 == 0) ? y0 + dy : y0 - dy;
-					points[2 + i][0] = x1 + dx/2;
+					points[2 + i][0] = x1 + dx / 2;
 					points[2 + i][1] = (i % 2 == 0) ? y1 - dy : y1 + dy;
 				}
 
 				points[4] = points[0];
-				
+
 				Figure fig = new Pad();
 				for (int i = 0; i < 5; i++) {
 					fig.addPoint(points[i]);
