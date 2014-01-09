@@ -11,6 +11,10 @@ public abstract class Figure {
 		list = new ArrayList<int[]>();
 	}
 
+	public Figure(Figure figure) {
+		list = figure.getPoints();
+	}
+
 	public List<int[]> getPoints() {
 		return list;
 	}

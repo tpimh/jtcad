@@ -110,19 +110,20 @@ public class HPGLParser {
 			}
 		}
 
-		List<Figure> pads = getPads(figs);
-		figs = cleanup(figs);
-		figs = stroke(figs);
+		List<Pad> pads = getPads(figs);
+		//figs = cleanup(figs);
+		//figs = stroke(figs);
 		figs.addAll(pads);
 
 		return figs;
 	}
 
-	private List<Figure> getPads(List<Figure> input) {
+	private List<Pad> getPads(List<Figure> input) {
 
-		List<Figure> pads = new ArrayList<Figure>();
+		List<Pad> pads = new ArrayList<Pad>();
 
 		for (Figure f : input) {
+			/*
 			// zero length (including pads)
 			if (f.getPoints().get(0)[0] == f.getPoints().get(
 					f.getPoints().size() - 1)[0]
@@ -131,7 +132,7 @@ public class HPGLParser {
 					&& f.getPoints().size() == 5) {
 				// pads.add(f);
 
-				int increment = -15;
+				int increment = 15;
 				int[][] points = { { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 },
 						{ 0, 0 } };
 
@@ -162,77 +163,11 @@ public class HPGLParser {
 				Figure fig = new Pad();
 				for (int i = 0; i < 5; i++) {
 					fig.addPoint(points[i]);
-				}
-				pads.add(fig);
-			}
+				}*/
+				pads.add(new Pad(f));
+			//}
 		}
 
 		return pads;
-	}
-
-	private List<Figure> cleanup(List<Figure> input) {
-
-		List<Figure> invalids = new ArrayList<Figure>();
-		List<Figure> pads = new ArrayList<Figure>();
-
-		for (Figure f : input) {
-			// less than two points
-			if (f.getPoints().size() < 2) {
-				invalids.add(f);
-			}
-
-			// zero length (including pads)
-			if (f.getPoints().get(0)[0] == f.getPoints().get(
-					f.getPoints().size() - 1)[0]
-					&& f.getPoints().get(0)[1] == f.getPoints().get(
-							f.getPoints().size() - 1)[1]) {
-				invalids.add(f);
-
-				if (f.getPoints().size() == 5) {
-					pads.add(f);
-				}
-			}
-		}
-		input.removeAll(invalids);
-
-		// num pads removed
-		// System.out.print(pads.size() + " pads removed");
-
-		return input;
-	}
-
-	private List<Figure> stroke(List<Figure> input) {
-		List<Figure> stroke = new ArrayList<Figure>();
-
-		for (Figure f : input) {
-			if (f.getPoints().size() == 2) {
-				Figure fig = new Trace();
-
-				int x0 = f.getPoints().get(0)[0], x1 = f.getPoints().get(1)[0], y0 = f
-						.getPoints().get(0)[1], y1 = f.getPoints().get(1)[1];
-
-				int x = x1 - x0, y = y1 - y0; // vector dimensions
-
-				double angle = Math.atan2(y, x);
-
-				int nx = 8, ny = -(x * nx) / y; // perpendicular vector
-												// dimensions
-
-				int length = (int) Math.sqrt(x * x + y * y); // vector length
-
-				int dx = (int) ((length + 5) * Math.cos(angle)), dy = (int) ((length + 5) * Math
-						.sin(angle)); // extended coordinates
-
-				fig.addPoint(new int[] { x0 + dx + nx, y0 + dy + ny });
-				fig.addPoint(new int[] { x0 + dx - nx, y0 + dy - ny });
-				fig.addPoint(new int[] { x1 - dx - nx, y1 - dy - ny });
-				fig.addPoint(new int[] { x1 - dx + nx, y1 - dy + ny });
-				fig.addPoint(new int[] { x0 + dx + nx, y0 + dy + ny });
-
-				stroke.add(fig);
-			}
-		}
-
-		return stroke;
 	}
 }
