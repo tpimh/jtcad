@@ -14,6 +14,10 @@ public abstract class Figure {
 	public Figure(Figure figure) {
 		list = figure.getPoints();
 	}
+	
+	public Figure(List<int[]> list) {
+		this.list = list;
+	}
 
 	public List<int[]> getPoints() {
 		return list;
