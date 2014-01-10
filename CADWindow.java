@@ -46,7 +46,7 @@ public class CADWindow extends Window {
 
 	public CADWindow() {
 
-		figures = hpgl.parse("example2.plt");
+		figures = hpgl.parse("example.plt");
 
 		setTitle("JtCAD");
 
@@ -179,7 +179,7 @@ public class CADWindow extends Window {
 				final String figStr;
 
 				figStr = model_figures.getValue(row, figCol);
-				
+
 				for (Figure fig : figures) {
 					if (fig.toString().equals(figStr)) {
 						fig.setActive(true);
@@ -372,7 +372,7 @@ public class CADWindow extends Window {
 				darea.queueDraw();
 			}
 		});
-		
+
 		zoom_100_tb.connect(new ToolButton.Clicked() {
 
 			public void onClicked(ToolButton arg0) {
@@ -380,12 +380,14 @@ public class CADWindow extends Window {
 				darea.queueDraw();
 			}
 		});
-		
+
 		zoom_fit_tb.connect(new ToolButton.Clicked() {
 
 			public void onClicked(ToolButton arg0) {
-				// TODO: now using data from DrawingArea, but the behavior is strange
-				view.fitAll(darea.getAllocatedWidth(), darea.getAllocatedHeight());
+				// TODO: now using data from DrawingArea, but the behavior is
+				// strange
+				view.fitAll(darea.getAllocatedWidth(),
+						darea.getAllocatedHeight());
 				darea.queueDraw();
 			}
 		});

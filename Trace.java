@@ -10,7 +10,7 @@ public class Trace extends Figure {
 		this.y1 = y1;
 		this.y2 = y2;
 	}
-	
+
 	public Trace(int[] point1, int[] point2) {
 		this.x1 = point1[0];
 		this.x2 = point2[0];

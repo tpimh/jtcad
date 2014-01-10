@@ -30,7 +30,7 @@ public class HPGLParser {
 		for (int i = 0; i < lines.size(); i++) {
 			String str = lines.get(i);
 
-			str = str.replaceAll("[\n\r ]", "");
+			str = str.replaceAll("[\t\n\r ]", "");
 			str = str.toUpperCase();
 
 			all_cmd += str;
@@ -65,11 +65,10 @@ public class HPGLParser {
 
 						last_pupa = new int[] { x, y };
 					} else if (arr_cmd[i].startsWith("CI")) {
-						System.out.println("PU : " + arr_cmd[i]
-								+ ": circle");
-						rpads.add(new RPad(last_pupa, Integer.parseInt(arr_cmd[i]
-								.replaceFirst("CI", ""))));
-					} else  {
+						System.out.println("PU : " + arr_cmd[i] + ": circle");
+						rpads.add(new RPad(last_pupa, Integer
+								.parseInt(arr_cmd[i].replaceFirst("CI", ""))));
+					} else {
 						System.out.println("PU : " + arr_cmd[i] + ": ignoring");
 					}
 				}
@@ -108,7 +107,7 @@ public class HPGLParser {
 						if (coordinates[2].equals("180")) {
 							radius = last_pupa[0]
 									- Integer.parseInt(coordinates[0]);
-							
+
 							if (radius < 0) {
 								radius = 0;
 							} else {
@@ -127,8 +126,7 @@ public class HPGLParser {
 				if (radius != 0) {
 					rpads.add(new RPad(points[0], radius));
 				} else if (iterator == 4) {
-					pads.add(new Pad(points[0], points[1], points[2],
-							points[3]));
+					pads.add(new Pad(points[0], points[1], points[2], points[3]));
 				} else if (iterator == 1) {
 					traces.add(new Trace(points[0], points[1]));
 				} else {
@@ -140,7 +138,7 @@ public class HPGLParser {
 					// I can not remember why do I need this
 				}
 			} else {
-				
+
 				System.out.println(": ignoring");
 			}
 		}

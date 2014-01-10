@@ -21,7 +21,7 @@ public class RPad extends Figure {
 
 		int[][] points = { { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 },
 				{ 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 },
-				{ 0, 0 }, {0,0} };
+				{ 0, 0 }, { 0, 0 } };
 
 		for (int i = 0; i < 12; i++) {
 			int x = (int) (Math.cos(Math.PI * i / 6) * radius) + xc;
@@ -30,7 +30,7 @@ public class RPad extends Figure {
 			points[i][0] = x;
 			points[i][1] = y;
 		}
-		
+
 		points[12][0] = (int) (radius) + xc; // cos(0) == 1
 		points[12][1] = (int) (0) + yc; // sin(0) == 1
 

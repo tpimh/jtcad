@@ -5,7 +5,6 @@ import java.util.List;
 import org.freedesktop.cairo.Context;
 import org.gnome.gdk.RGBA;
 import org.golovin.jtcad.geometry.Figure;
-import org.golovin.jtcad.geometry.RPad;
 
 public class View {
 
