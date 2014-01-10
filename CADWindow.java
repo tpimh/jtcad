@@ -46,7 +46,7 @@ public class CADWindow extends Window {
 
 	public CADWindow() {
 
-		figures = hpgl.parse("example.plt");
+		figures = hpgl.parse("example2.plt");
 
 		setTitle("JtCAD");
 
@@ -179,7 +179,7 @@ public class CADWindow extends Window {
 				final String figStr;
 
 				figStr = model_figures.getValue(row, figCol);
-
+				
 				for (Figure fig : figures) {
 					if (fig.toString().equals(figStr)) {
 						fig.setActive(true);
@@ -207,7 +207,7 @@ public class CADWindow extends Window {
 		CellRendererText xRenderer, yRenderer;
 		TreeViewColumn xColumn, yColumn;
 
-		List<int[]> points = figure.getPoints();
+		int[][] points = figure.getPoints();
 
 		final DataColumnString xCol, yCol;
 		model_points = new ListStore(new DataColumn[] {

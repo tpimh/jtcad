@@ -5,10 +5,10 @@ import java.util.List;
 import org.freedesktop.cairo.Context;
 import org.gnome.gdk.RGBA;
 import org.golovin.jtcad.geometry.Figure;
+import org.golovin.jtcad.geometry.RPad;
 
 public class View {
 
-	// private final static double OFFSET_STEP = 100.0D;
 	private final static double LINE_WIDTH = 1.0D;
 	private final static double CROSS_WIDTH = 5.0D;
 	private final static double CROSS_SIZE = 2.0D;
@@ -31,16 +31,6 @@ public class View {
 	public void setScale(double scale) {
 		this.scale = scale;
 	}
-
-	/*
-	 * public void addXoffset() { offset[0] += OFFSET_STEP; }
-	 * 
-	 * public void addYoffset() { offset[1] += OFFSET_STEP; }
-	 * 
-	 * public void reduceXoffset() { offset[0] -= OFFSET_STEP; }
-	 * 
-	 * public void reduceYoffset() { offset[1] -= OFFSET_STEP; }
-	 */
 
 	public void setOffset(double x, double y) {
 		offset = new double[] { x, y };
@@ -77,19 +67,20 @@ public class View {
 	}
 
 	public void draw(Figure fig, Context cr) {
-		List<int[]> points = fig.getPoints();
+		int[][] points = fig.getPoints();
 
 		cr.setLineWidth(LINE_WIDTH);
-		if (fig.getActive() == true) {
+		if (fig.isActive()) {
 			cr.setSource(RGBA.RED);
 		} else {
 			cr.setSource(RGBA.BLACK);
 		}
-		cr.moveTo((points.get(0)[0] - offset[0]) * scale,
-				(points.get(0)[1] - offset[1]) * scale);
-		for (int i = 0; i < points.size() - 1; i++) {
-			cr.lineTo((points.get(i + 1)[0] - offset[0]) * scale,
-					(points.get(i + 1)[1] - offset[1]) * scale);
+
+		cr.moveTo((points[0][0] - offset[0]) * scale,
+				(points[0][1] - offset[1]) * scale);
+		for (int i = 0; i < points.length - 1; i++) {
+			cr.lineTo((points[i + 1][0] - offset[0]) * scale,
+					(points[i + 1][1] - offset[1]) * scale);
 		}
 
 		cr.stroke();

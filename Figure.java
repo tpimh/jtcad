@@ -1,45 +1,23 @@
 package org.golovin.jtcad.geometry;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public abstract class Figure {
-
-	List<int[]> list;
-
-	public Figure() {
-		list = new ArrayList<int[]>();
-	}
-
-	public Figure(Figure figure) {
-		list = figure.getPoints();
-	}
-	
-	public Figure(List<int[]> list) {
-		this.list = list;
-	}
-
-	public List<int[]> getPoints() {
-		return list;
-	}
-
-	public void addPoint(int[] point) {
-		list.add(point);
-	}
 
 	private boolean active = false;
 
 	public void setActive(boolean active) {
 		this.active = active;
-	}
+	};
 
-	public boolean getActive() {
+	public boolean isActive() {
 		return active;
 	}
 
+	public abstract int[][] getPoints();
+
 	@Override
 	public String toString() {
-		return this.getClass().getSimpleName() + "@"
-				+ Integer.toHexString(list.hashCode());
+		String classname = getClass().getCanonicalName();
+		return classname.substring(classname.lastIndexOf('.') + 1) + "@"
+				+ Integer.toHexString(hashCode());
 	}
 }
