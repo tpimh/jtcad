@@ -13,6 +13,8 @@ public abstract class Figure {
 	}
 
 	public abstract int[][] getPoints();
+	
+	public abstract int[][] getOutline(int increment);
 
 	@Override
 	public String toString() {

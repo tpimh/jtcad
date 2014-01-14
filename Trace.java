@@ -22,4 +22,35 @@ public class Trace extends Figure {
 	public int[][] getPoints() {
 		return new int[][] { { x1, y1 }, { x2, y2 } };
 	}
+
+	@Override
+	public int[][] getOutline(int increment) {
+
+		int[][] points = new int[][] { { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 },
+				{ 0, 0 } };
+
+		int x = x2 - x1, y = y2 - y1; // vector dimensions
+
+		if (y == 0) {
+			y = 1;
+		}
+
+		double angle = Math.atan2(y, x);
+
+		int nx = increment, ny = -(x * nx) / y; // perpendicular vector
+										// dimensions
+
+		int length = (int) Math.sqrt(x * x + y * y); // vector length
+
+		int dx = (int) ((length + increment) * Math.cos(angle)), dy = (int) ((length + increment) * Math
+				.sin(angle)); // extended coordinates
+
+		points[0] = new int[] { x1 + dx + nx, y1 + dy + ny };
+		points[1] = new int[] { x1 + dx - nx, y1 + dy - ny };
+		points[2] = new int[] { x2 - dx - nx, y2 - dy - ny };
+		points[3] = new int[] { x2 - dx + nx, y2 - dy + ny };
+		points[4] = new int[] { x1 + dx + nx, y1 + dy + ny };
+
+		return points;
+	}
 }

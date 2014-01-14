@@ -66,7 +66,8 @@ public class View {
 	}
 
 	public void draw(Figure fig, Context cr) {
-		int[][] points = fig.getPoints();
+		//int[][] points = fig.getPoints();
+		int[][] points = fig.getOutline(2);
 
 		cr.setLineWidth(LINE_WIDTH);
 		if (fig.isActive()) {

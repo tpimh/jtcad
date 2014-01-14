@@ -31,4 +31,11 @@ public class Pad extends Figure {
 		return new int[][] { { x1, y1 }, { x2, y2 }, { x3, y3 }, { x4, y4 },
 				{ x1, y1 } };
 	}
+
+	@Override
+	public int[][] getOutline(int increment) {
+		// TODO make better outlines
+		return new int[][] { { x1, y1 }, { x2, y2 }, { x3, y3 }, { x4, y4 },
+				{ x1, y1 } };
+	}
 }
